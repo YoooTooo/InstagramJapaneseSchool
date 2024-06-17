@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+  </head>
+  <body>
+    <h1>Upload from Google Drive to Instagram</h1>
+    <button onclick="loadDriveFiles()">Load Drive Files</button>
+    <div id="driveFiles"></div>
+    <div id="status"></div>
+    <script>
+      function loadDriveFiles() {
+        google.script.run.withSuccessHandler(function(files) {
+          var driveFilesDiv = document.getElementById('driveFiles');
+          driveFilesDiv.innerHTML = '';
+          files.forEach(function(file) {
+            var fileDiv = document.createElement('div');
+            fileDiv.innerHTML = '<input type="radio" name="driveFile" value="' + file.id + '">' + file.name;
+            driveFilesDiv.appendChild(fileDiv);
+          });
+          var uploadButton = document.createElement('button');
+          uploadButton.textContent = 'Upload Selected File';
+          uploadButton.onclick = uploadSelectedFile;
+          driveFilesDiv.appendChild(uploadButton);
+        }).getDriveFiles();
+      }
+
+      function uploadSelectedFile() {
+        var selectedFile = document.querySelector('input[name="driveFile"]:checked');
+        if (selectedFile) {
+          google.script.run.withSuccessHandler(function(response) {
+            document.getElementById('status').innerHTML = response;
+          }).uploadDriveFileToInstagram(selectedFile.value);
+        } else {
+          alert('Please select a file.');
+        }
+      }
+    </script>
+  </body>
+</html>

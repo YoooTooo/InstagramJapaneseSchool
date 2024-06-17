@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+  </head>
+  <body>
+    <h1>Upload Image or Video to Instagram</h1>
+    <form id="uploadForm">
+      <input type="file" id="fileInput" accept="image/*,video/*">
+      <button type="button" onclick="uploadFile()">Upload</button>
+    </form>
+    <div id="status"></div>
+    <script>
+      function uploadFile() {
+        var fileInput = document.getElementById('fileInput');
+        var file = fileInput.files[0];
+        var formData = new FormData();
+        formData.append('file', file);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/uploadFile');
+        xhr.onload = function() {
+          document.getElementById('status').innerHTML = xhr.responseText;
+        };
+        xhr.send(formData);
+      }
+    </script>
+  </body>
+</html>

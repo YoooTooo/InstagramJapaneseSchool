@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+  </head>
+  <body>
+    <h1>Fetch Your Instagram Posts</h1>
+    <button onclick="fetchPosts()">Fetch Posts</button>
+    <div id="posts"></div>
+    <script>
+      function fetchPosts() {
+        google.script.run.withSuccessHandler(function(posts) {
+          var postsDiv = document.getElementById('posts');
+          postsDiv.innerHTML = '';
+          posts.forEach(function(post) {
+            var img = document.createElement('img');
+            img.src = post.media_url;
+            img.alt = post.caption || '';
+            img.style.width = '200px';
+            postsDiv.appendChild(img);
+          });
+        }).getInstagramPosts();
+      }
+    </script>
+  </body>
+</html>
