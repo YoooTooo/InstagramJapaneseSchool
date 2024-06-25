@@ -1,6 +1,5 @@
 function getInstagramPosts() {
-  var accessToken = 'YOUR_INSTAGRAM_ACCESS_TOKEN';
-  var instagramApiUrl = 'https://graph.instagram.com/me/media?fields=id,caption,media_url,permalink&access_token=' + accessToken;
+  var instagramApiUrl = `${INSTAGRAM_API_URL}/${INSTAGRAM_BUSINESS_ACCOUNT_ID}/media?fields=id,caption,media_url,permalink&access_token=${INSTAGRAM_ACCESS_TOKEN}`;
 
   try {
     var response = UrlFetchApp.fetch(instagramApiUrl);

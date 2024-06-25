@@ -11,21 +11,38 @@ function handlePost(e) {
 }
 
 function postToInstagram(fileData) {
-  var accessToken = 'YOUR_INSTAGRAM_ACCESS_TOKEN';
-  var instagramApiUrl = 'https://graph.instagram.com/me/media';
-
-  var options = {
+  // Step 1: Upload the media
+  var uploadUrl = `${INSTAGRAM_API_URL}/${INSTAGRAM_BUSINESS_ACCOUNT_ID}/media`;
+  var uploadOptions = {
     'method': 'post',
     'contentType': 'application/json',
     'payload': JSON.stringify({
       'image': fileData,
-      'access_token': accessToken
+      'access_token': INSTAGRAM_ACCESS_TOKEN
     })
   };
 
   try {
-    var response = UrlFetchApp.fetch(instagramApiUrl, options);
-    return response.getContentText();
+    var uploadResponse = UrlFetchApp.fetch(uploadUrl, uploadOptions);
+    var uploadResult = JSON.parse(uploadResponse.getContentText());
+
+    if (uploadResult.id) {
+      // Step 2: Publish the media
+      var publishUrl = `${INSTAGRAM_API_URL}/${INSTAGRAM_BUSINESS_ACCOUNT_ID}/media_publish`;
+      var publishOptions = {
+        'method': 'post',
+        'contentType': 'application/json',
+        'payload': JSON.stringify({
+          'creation_id': uploadResult.id,
+          'access_token': INSTAGRAM_ACCESS_TOKEN
+        })
+      };
+
+      var publishResponse = UrlFetchApp.fetch(publishUrl, publishOptions);
+      return publishResponse.getContentText();
+    } else {
+      return 'Error: Unable to upload media';
+    }
   } catch (e) {
     return 'Error: ' + e.toString();
   }
