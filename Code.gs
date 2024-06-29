@@ -1,12 +1,16 @@
 function doGet(e) {
-  if (e.parameter.page === 'upload') {
-    return HtmlService.createHtmlOutputFromFile('upload');
-  } else if (e.parameter.page === 'fetch') {
-    return HtmlService.createHtmlOutputFromFile('fetch');
-  } else if (e.parameter.page === 'driveUpload') {
-    return HtmlService.createHtmlOutputFromFile('driveUpload');
+
+console.log(e.parameter.page)
+
+ // 'upload', 'fetch', 'driveUpload
+  if (typeof e.parameter.page !== 'undefined') {
+    const template = HtmlService.createTemplateFromFile(e.parameter.page);
+    template.url = ScriptApp.getService().getUrl();
+    return template.evaluate();
   } else {
-    return HtmlService.createHtmlOutputFromFile('index');
+    const template = HtmlService.createTemplateFromFile('index');
+    template.url = ScriptApp.getService().getUrl();
+    return template.evaluate();
   }
 }
 
