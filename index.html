@@ -2,13 +2,15 @@
 <html>
   <head>
     <base target="_top">
+    <!-- Axios CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
   <body>
     <h1>Instagram Integration</h1>
     <ul>
-      <li><a href="?page=upload">Upload Image or Video to Instagram</a></li>
-      <li><a href="?page=fetch">Fetch Your Instagram Posts</a></li>
-      <li><a href="?page=driveUpload">Upload from Google Drive to Instagram</a></li>
+      <li><a href="<?= url ?>?file=upload">アップロード画面！</a></li>
+      <li><a href="<?= url ?>?file=fetch">自分の投稿を見る</a></li>
+      <li><a href="<?= url ?>?file=driveUpload">ドライブから投稿する</a></li></li>
     </ul>
   </body>
 </html>

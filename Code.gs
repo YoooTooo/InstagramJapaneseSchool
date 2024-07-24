@@ -1,17 +1,26 @@
 function doGet(e) {
 
-console.log(e.parameter.page)
+  const file = e.parameter.file;
 
- // 'upload', 'fetch', 'driveUpload
-  if (typeof e.parameter.page !== 'undefined') {
-    const template = HtmlService.createTemplateFromFile(e.parameter.page);
-    template.url = ScriptApp.getService().getUrl();
-    return template.evaluate();
-  } else {
+  // 初回にindexの内容を表示
+  if(!file) {
     const template = HtmlService.createTemplateFromFile('index');
     template.url = ScriptApp.getService().getUrl();
-    return template.evaluate();
+    const htmlOutput = template.evaluate()
+    htmlOutput
+      .setTitle('index')
+      .addMetaTag('viewport', 'width=device-width, initial-scale=1');
+
+    return htmlOutput;
   }
+
+  const template = HtmlService.createTemplateFromFile(file);
+  template.url = ScriptApp.getService().getUrl();
+  const htmlOutput = template.evaluate()
+  htmlOutput
+    .setTitle(file)
+    .addMetaTag('viewport', 'width=device-width, initial-scale=1');
+  return htmlOutput;
 }
 
 function doPost(e) {
