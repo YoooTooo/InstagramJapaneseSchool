@@ -1,4 +1,4 @@
-// src/BaseLogic/PostHandler.ts
+import Constants from './../Utilities/Constants';
 
 export function handlePost(e: GoogleAppsScript.Events.DoPost): GoogleAppsScript.Content.TextOutput {
   const requestBody = JSON.parse(e.postData.contents);
@@ -14,18 +14,18 @@ export function handlePost(e: GoogleAppsScript.Events.DoPost): GoogleAppsScript.
 }
 
 export function postToInstagram(fileData: string): string {
-  const INSTAGRAM_API_URL = 'https://graph.instagram.com';
-  const INSTAGRAM_BUSINESS_ACCOUNT_ID = 'your_business_account_id';
-  const INSTAGRAM_ACCESS_TOKEN = 'your_access_token';
+  // const INSTAGRAM_API_URL = 'https://graph.instagram.com';
+  // const INSTAGRAM_BUSINESS_ACCOUNT_ID = 'your_business_account_id';
+  // const INSTAGRAM_ACCESS_TOKEN = 'your_access_token';
 
   // Step 1: Upload the media
-  const uploadUrl = `${INSTAGRAM_API_URL}/${INSTAGRAM_BUSINESS_ACCOUNT_ID}/media`;
+  const uploadUrl = `${Constants.INSTAGRAM_API_URL}/${Constants.INSTAGRAM_BUSINESS_ACCOUNT_ID}/media`;
   const uploadOptions = {
     method: 'post' as GoogleAppsScript.URL_Fetch.HttpMethod,
     contentType: 'application/json',
     payload: JSON.stringify({
       image: fileData,
-      access_token: INSTAGRAM_ACCESS_TOKEN,
+      access_token: Constants.INSTAGRAM_ACCESS_TOKEN,
     }),
   };
 
@@ -35,13 +35,13 @@ export function postToInstagram(fileData: string): string {
 
     if (uploadResult.id) {
       // Step 2: Publish the media
-      const publishUrl = `${INSTAGRAM_API_URL}/${INSTAGRAM_BUSINESS_ACCOUNT_ID}/media_publish`;
+      const publishUrl = `${Constants.INSTAGRAM_API_URL}/${Constants.INSTAGRAM_BUSINESS_ACCOUNT_ID}/media_publish`;
       const publishOptions = {
         method: 'post' as GoogleAppsScript.URL_Fetch.HttpMethod,
         contentType: 'application/json',
         payload: JSON.stringify({
           creation_id: uploadResult.id,
-          access_token: INSTAGRAM_ACCESS_TOKEN,
+          access_token: Constants.INSTAGRAM_ACCESS_TOKEN,
         }),
       };
 
