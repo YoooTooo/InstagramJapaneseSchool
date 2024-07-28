@@ -50,7 +50,13 @@ export function postToInstagram(fileData: string): string {
     } else {
       return 'Error: Unable to upload media';
     }
-  } catch (e: any) {
-    return 'Error: ' + e.toString();
+  } catch (e) {
+    if (typeof e === 'string') {
+      return 'Error: ' + e;
+    } else if (e instanceof Error) {
+      return 'Error: ' + e.message;
+    } else {
+      return 'Error: Unknown error occurred';
+    }
   }
 }

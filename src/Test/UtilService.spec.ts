@@ -1,5 +1,5 @@
 import { UtilService } from '../Utilities/UtilService';
-jest.unmock('./UtilService');
+jest.unmock('../Utilities/UtilService');
 
 describe('UtilService', () => {
   describe('getDayFormat()', () => {
