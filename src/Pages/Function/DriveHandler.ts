@@ -1,3 +1,5 @@
+import { postToInstagram } from './../../BaseLogic/PostHandler';
+
 function getDriveFiles() {
   var folder = DriveApp.getFolderById(GOOGLE_DRIVE_FOLDER_ID);
   var files = folder.getFiles();
