@@ -14,5 +14,5 @@
     "allowUnreachableCode": false,
     "allowUnusedLabels": false
   },
-  "include": ["src/**/*", "rollup.config.mjs"]
+  "include": ["src/**/*", "rollup.config.mjs", "global.d.ts"]
 }

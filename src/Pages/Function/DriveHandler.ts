@@ -11,7 +11,7 @@ function getDriveFiles() {
   return fileList;
 }
 
-function uploadDriveFileToInstagram(fileId) {
+function uploadDriveFileToInstagram(fileId: string) {
   var file = DriveApp.getFileById(fileId);
   var fileData = Utilities.base64Encode(file.getBlob().getBytes());
   var response = postToInstagram(fileData);

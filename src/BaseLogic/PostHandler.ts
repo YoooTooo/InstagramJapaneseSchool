@@ -1,4 +1,4 @@
-function handlePost(e) {
+function handlePost(e: any) {
   var file = e.parameter.file;
   if (!file) {
     return ContentService.createTextOutput('No file uploaded');
@@ -10,11 +10,11 @@ function handlePost(e) {
   return ContentService.createTextOutput(response);
 }
 
-function postToInstagram(fileData) {
+function postToInstagram(fileData:string) {
   // Step 1: Upload the media
   var uploadUrl = `${INSTAGRAM_API_URL}/${INSTAGRAM_BUSINESS_ACCOUNT_ID}/media`;
   var uploadOptions = {
-    'method': 'post',
+    'method': 'post' as GoogleAppsScript.URL_Fetch.HttpMethod,
     'contentType': 'application/json',
     'payload': JSON.stringify({
       'image': fileData,
@@ -30,7 +30,7 @@ function postToInstagram(fileData) {
       // Step 2: Publish the media
       var publishUrl = `${INSTAGRAM_API_URL}/${INSTAGRAM_BUSINESS_ACCOUNT_ID}/media_publish`;
       var publishOptions = {
-        'method': 'post',
+        'method': 'post' as GoogleAppsScript.URL_Fetch.HttpMethod,
         'contentType': 'application/json',
         'payload': JSON.stringify({
           'creation_id': uploadResult.id,
@@ -43,7 +43,7 @@ function postToInstagram(fileData) {
     } else {
       return 'Error: Unable to upload media';
     }
-  } catch (e) {
+  } catch (e: any) {
     return 'Error: ' + e.toString();
   }
 }

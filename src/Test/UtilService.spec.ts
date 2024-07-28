@@ -1,4 +1,4 @@
-import { UtilService } from './UtilService';
+import { UtilService } from '../Utilities/UtilService';
 jest.unmock('./UtilService');
 
 describe('UtilService', () => {

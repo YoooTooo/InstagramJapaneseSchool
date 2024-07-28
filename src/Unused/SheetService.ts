@@ -1,5 +1,5 @@
 import Spreadsheet = GoogleAppsScript.Spreadsheet.Spreadsheet;
-import { UtilService } from './UtilService';
+import { UtilService } from '../Utilities/UtilService';
 
 export class SheetService {
   static createInitialFile(prefix: string): Spreadsheet {
